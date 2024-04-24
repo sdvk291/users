@@ -3,8 +3,8 @@ package com.assignment.users.request;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class CreateUserRequest {
-    public CreateUserRequest(String username, String emailId, String firstName, String lastName, String password) {
+public class UpdateUserRequest {
+    public UpdateUserRequest(String username, String emailId, String firstName, String lastName, String password) {
         this.username = username;
         this.emailId = emailId;
         this.firstName = firstName;

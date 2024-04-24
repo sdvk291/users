@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 public class UserServiceHelper {
     private UserRepository userRepository;
@@ -19,6 +21,11 @@ public class UserServiceHelper {
     @Transactional
     public boolean isUsernameAvailable(String username){
         return !userRepository.existsById(username);
+    }
+
+    @Transactional
+    public Optional<User> getUser(String username){
+        return userRepository.findById(username);
     }
 
     @Transactional
