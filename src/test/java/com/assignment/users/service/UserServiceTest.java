@@ -14,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Optional;
 
@@ -100,7 +101,8 @@ public class UserServiceTest {
     @Test
     public void testUpdateUser_WithValidRequest_Success() {
         UpdateUserRequest request = new UpdateUserRequest("username", "play@witcher.com", "Yo", "Update", "password");
-        User existingUser = new User("username", "play@witcher.com", "Geralt", "Witcher", "password");
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        User existingUser = new User("username", "play@witcher.com", "Geralt", "Witcher",encoder.encode("password") );
         when(passwordValidator.validatePassword(anyString(), anyString())).thenReturn("");
         when(userServiceHelper.getUser("username")).thenReturn(Optional.of(existingUser));
         UpdateUserBO result = userService.updateUser(request);

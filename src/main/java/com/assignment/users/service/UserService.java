@@ -8,6 +8,7 @@ import com.assignment.users.model.User;
 import com.assignment.users.request.CreateUserRequest;
 import com.assignment.users.request.UpdateUserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,7 +51,8 @@ public class UserService {
         user.setEmailId(request.getEmailId());
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
-        user.setPassword(request.getPassword());
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        user.setPassword(encoder.encode(request.getPassword()));
         userServiceHelper.createUser(user);
         createUserBO.setUserDTO(user.toDTO());
         return createUserBO;
@@ -80,7 +82,8 @@ public class UserService {
             return updateUserBO;
         }
         User user = existingUserOptional.get();
-        if(!user.getPassword().equals(request.getPassword())){
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        if(!encoder.matches(request.getPassword(), user.getPassword())){
             updateUserBO.setErrorMessage("you don't have access to update");
             updateUserBO.setSuccess(false);
             return updateUserBO;
