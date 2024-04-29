@@ -25,6 +25,7 @@ public class UserController {
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody CreateUserRequest createUserRequest){
         CreateUserBO createUserBO = userService.createUser(createUserRequest);
+       System.out.println(createUserBO.getUserDTO());
         if(createUserBO.isSuccess()){
             return ResponseEntity.ok(createUserBO.getUserDTO());
         }else{

@@ -22,7 +22,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @ExtendWith(MockitoExtension.class)
 //@RunWith(MockitoJUnitRunner.class)
@@ -103,8 +103,8 @@ public class UserServiceTest {
     @Test
     public void testUpdateUser_WithValidRequest_Success() {
         UpdateUserRequest request = new UpdateUserRequest("username", "play@witcher.com", "Yo", "Update", "password");
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        User existingUser = new User("username", "play@witcher.com", "Geralt", "Witcher",encoder.encode("password") );
+//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        User existingUser = new User("username", "play@witcher.com", "Geralt", "Witcher","password" );
         when(passwordValidator.validatePassword(anyString(), anyString())).thenReturn("");
         when(userServiceHelper.getUser("username")).thenReturn(Optional.of(existingUser));
         UpdateUserBO result = userService.updateUser(request);

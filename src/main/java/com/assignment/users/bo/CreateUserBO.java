@@ -2,6 +2,7 @@ package com.assignment.users.bo;
 
 import com.assignment.users.dto.UserDTO;
 
+
 public class CreateUserBO {
     private boolean isSuccess;
     private UserDTO userDTO;
